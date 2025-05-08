@@ -1,1 +1,112 @@
-<p>poker works!</p>
+<div class="poker-table min-h-screen bg-gray-600 p-6">
+  <!-- Cabecera del juego -->
+  <div class="mb-8 flex justify-between items-center">
+    <h1 class="text-3xl font-bold text-white">Texas Hold'em</h1>
+    <div class="flex gap-4">
+      <span class="text-xl text-yellow-100">Pot: ${{ pot }}</span>
+      <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+        New Game
+      </button>
+    </div>
+  </div>
+
+  <!-- Cartas comunitarias -->
+  <div class="community-cards bg-gray-800 p-6 rounded-xl shadow-lg mb-8">
+    <h2 class="text-xl text-white mb-4">Community Cards</h2>
+    <div class="flex justify-center gap-3 flex-wrap">
+      @for (card of communityCards; track card) {
+        <app-card
+          [suit]="card.suit"
+          [value]="card.value"
+          [imagePath]="card.imgPath ?? 'assets/images/default_card.png'"
+          [interactive]="false"
+        ></app-card>
+      }
+
+      <!-- Espacios para cartas que aún no se han mostrado -->
+      @for (i of emptySpotsArray(); track i) {
+        <app-card
+          [faceDown]="true"
+          backStyle="blue_back"
+          imagePath="assets/images/blue_back.png"
+          class="opacity-60"
+        ></app-card>
+      }
+    </div>
+  </div>
+
+  <!-- Mesa de juego principal -->
+  <div class="game-area grid grid-cols-3 gap-6">
+    <!-- Jugadores oponentes -->
+    <div class="opponents col-span-3 grid grid-cols-1 md:grid-cols-3 gap-4">
+      @for (player of opponents; track player) {
+        <div class="player bg-gray-800 p-4 rounded-xl shadow-lg">
+          <div class="flex justify-between items-center mb-2">
+            <h3 class="text-lg text-white">{{ player.name }}</h3>
+            <span class="text-yellow-100">${{ player.chips }}</span>
+          </div>
+          <div class="flex justify-center gap-3">
+            <app-card
+              [faceDown]="true"
+              backStyle="red_back"
+              imagePath="assets/images/red_back.png"
+            ></app-card>
+            <app-card
+              [faceDown]="true"
+              backStyle="red_back"
+              imagePath="assets/images/red_back.png"
+            ></app-card>
+          </div>
+          <div class="mt-2 text-center text-white">
+            Bet: ${{ player.bet }}
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Panel de acciones del jugador -->
+    <div class="actions col-span-3 md:col-span-1 bg-gray-800 p-4 rounded-xl shadow-lg order-last md:order-none">
+      <h2 class="text-xl text-white mb-4">Actions</h2>
+      <div class="flex flex-col gap-3">
+        <button class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition">
+          Fold
+        </button>
+        <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+          Check
+        </button>
+        <button class="px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 transition">
+          Call ${{ currentBet }}
+        </button>
+        <div class="flex gap-2">
+          <button class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-gray-800 transition flex-grow">
+            Raise
+          </button>
+          <input
+            type="number"
+            class="w-24 px-2 py-2 rounded-md"
+            [value]="currentBet * 2"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Mano del jugador -->
+    <div class="player-hand col-span-3 md:col-span-2 bg-gray-800 p-6 rounded-xl shadow-lg">
+      <h2 class="text-xl text-white mb-4">Your Hand</h2>
+      <div class="flex justify-center gap-6">
+        @for (card of playerHand; track card) {
+          <app-card
+            [suit]="card.suit"
+            [value]="card.value"
+            [imagePath]="card.imgPath ?? 'assets/images/default_card.png'"
+            [interactive]="true"
+          ></app-card>
+        }
+      </div>
+      <div class="mt-4 flex justify-between items-center">
+        <span class="text-white">{{ playerName }}</span>
+        <span class="text-yellow-100">Chips: ${{ playerChips }}</span>
+      </div>
+    </div>
+  </div>
+</div>

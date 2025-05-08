@@ -1,0 +1,39 @@
+:host {
+  display: block;
+}
+.border-brown-900 {
+  border-color: #4a2c0b;
+}
+.border-brown-700 {
+  border-color: #6b4e31;
+}
+.player-bottom {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.player-top {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.player-left {
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.player-right {
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.player-top-left {
+  top: 20px;
+  left: 20%;
+  transform: translateX(-50%);
+}
+.player-top-right {
+  top: 20px;
+  right: 20%;
+  transform: translateX(50%);
+}
