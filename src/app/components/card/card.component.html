@@ -8,10 +8,4 @@
     class="w-full h-full rounded-lg shadow-md"
     (error)="handleImageError($event)"
   />
-  <div
-    *ngIf="imageError"
-    class="absolute inset-0 flex items-center justify-center bg-gray-200 rounded-lg"
-  >
-    <span>{{ value }}{{ suit }}</span>
-  </div>
 </div>
