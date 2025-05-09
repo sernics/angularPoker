@@ -95,10 +95,6 @@
   height: 112px;
 }
 
-.card-face-down {
-  opacity: 0.6; /* Mantiene opacity-60 */
-}
-
 /* Mesa de juego */
 .game-area {
   display: grid;

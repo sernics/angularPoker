@@ -3,7 +3,7 @@
   [ngClass]="{ 'card-interactive': interactive }"
 >
   <img
-    [src]="cardImagePath"
+    [src]="cardImagePath()"
     [alt]="cardAlt"
     class="card-image"
     (error)="handleImageError($event)"

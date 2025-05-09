@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from '@/components/card/card.component';
+// import { Card } from '@/class/card';
 
 interface Card {
   suit: string;
@@ -15,10 +16,9 @@ interface Card {
   templateUrl: './poker.component.html',
   styleUrls: ['./poker.component.css']
 })
-export class PokerComponent implements OnInit, AfterViewInit {
+export class PokerComponent {
   // Datos de ejemplo para mostrar el diseño
   playerName: string = 'Player 1';
-  playerChips: number = 1000;
   playerHand: Card[] = [
     { suit: 'H', value: 'A', imgPath: 'assets/images/AH.png' },
     { suit: 'S', value: 'K', imgPath: 'assets/images/KS.png' }
@@ -40,39 +40,6 @@ export class PokerComponent implements OnInit, AfterViewInit {
   ];
 
   constructor() {
-  }
-
-  ngOnInit(): void {
-    // Aquí conectarías con tu servicio que contiene la lógica del juego
-    console.log('PokerComponent initialized');
-    this.checkImagesAvailability();
-  }
-
-  ngAfterViewInit(): void {
-    // Verificar si las imágenes están disponibles después de que el DOM se renderice
-    setTimeout(() => {
-      console.log('Checking images availability after view init');
-      this.checkImagesAvailability();
-    }, 1000);
-  }
-
-  // Función para verificar si las imágenes están disponibles
-  checkImagesAvailability(): void {
-    console.log('Checking cards images paths:');
-
-    const testPaths = [
-      'assets/images/AH.png',
-      'assets/images/KS.png',
-      'assets/images/10D.png',
-      'assets/images/blue_back.png'
-    ];
-
-    testPaths.forEach(path => {
-      const img = new Image();
-      img.onload = () => console.log(`✅ Image loaded successfully: ${path}`);
-      img.onerror = () => console.error(`❌ Failed to load image: ${path}`);
-      img.src = path;
-    });
   }
 
   emptySpotsArray(): number[] {

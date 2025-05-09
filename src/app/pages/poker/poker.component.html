@@ -13,8 +13,6 @@
     <div class="card-container">
       @for (card of communityCards; track card) {
         <app-card
-          [suit]="card.suit"
-          [value]="card.value"
           [imagePath]="card.imgPath ?? 'assets/images/default_card.png'"
           [interactive]="false"
           class="card"
@@ -23,9 +21,7 @@
       @for (i of emptySpotsArray(); track i) {
         <app-card
           [faceDown]="true"
-          backStyle="blue_back"
-          imagePath="assets/images/blue_back.png"
-          class="card card-face-down"
+          class="card"
         ></app-card>
       }
     </div>
@@ -43,13 +39,11 @@
           <div class="player-cards">
             <app-card
               [faceDown]="true"
-              backStyle="red_back"
               imagePath="assets/images/red_back.png"
               class="card"
             ></app-card>
             <app-card
               [faceDown]="true"
-              backStyle="red_back"
               imagePath="assets/images/red_back.png"
               class="card"
             ></app-card>
@@ -75,8 +69,6 @@
       <div class="card-container">
         @for (card of playerHand; track card) {
           <app-card
-            [suit]="card.suit"
-            [value]="card.value"
             [imagePath]="card.imgPath ?? 'assets/images/default_card.png'"
             [interactive]="true"
             class="card"
