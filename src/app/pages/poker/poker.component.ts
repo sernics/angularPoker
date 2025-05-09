@@ -13,6 +13,7 @@ interface Card {
   standalone: true,
   imports: [CommonModule, CardComponent],
   templateUrl: './poker.component.html',
+  styleUrls: ['./poker.component.css']
 })
 export class PokerComponent implements OnInit, AfterViewInit {
   // Datos de ejemplo para mostrar el diseño
@@ -32,16 +33,14 @@ export class PokerComponent implements OnInit, AfterViewInit {
   // Para mostrar espacios de cartas que aún no se han revelado
   emptySpots: number[] = [1, 2]; // Para turn y river
 
-  pot: number = 150;
-  currentBet: number = 20;
-
   opponents = [
     { name: 'Player 2', chips: 850, bet: 20 },
     { name: 'Player 3', chips: 1200, bet: 20 },
     { name: 'Player 4', chips: 930, bet: 0, folded: true }
   ];
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit(): void {
     // Aquí conectarías con tu servicio que contiene la lógica del juego

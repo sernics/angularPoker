@@ -1,11 +1,11 @@
 <div
-  class="poker-card relative transition-transform duration-300"
-  [ngClass]="{ 'transform hover:scale-110': interactive }"
+  class="card"
+  [ngClass]="{ 'card-interactive': interactive }"
 >
   <img
     [src]="cardImagePath"
     [alt]="cardAlt"
-    class="w-full h-full rounded-lg shadow-md"
+    class="card-image"
     (error)="handleImageError($event)"
   />
 </div>
