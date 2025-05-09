@@ -33,39 +33,40 @@
   color: #fff;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s; /* Reemplaza transition */
+  transition: background-color 0.3s, opacity 0.3s; /* Agrega transición para opacidad */
 }
 
 .btn-primary {
   background-color: #2563eb; /* Reemplaza bg-blue-600 */
 }
 
-.btn-primary:hover {
-  background-color: #1d4ed8; /* Reemplaza hover:bg-blue-700 */
+.btn-primary:hover:not(.disabled) {
+  background-color: #1d4ed8; /* Reemplaza hover:bg-blue-700, solo aplica si no está deshabilitado */
 }
 
 .btn-danger {
   background-color: #dc2626; /* Reemplaza bg-red-600 */
 }
 
-.btn-danger:hover {
-  background-color: #b91c1c; /* Reemplaza hover:bg-red-700 */
+.btn-danger:hover:not(.disabled) {
+  background-color: #b91c1c; /* Reemplaza hover:bg-red-700, solo aplica si no está deshabilitado */
 }
 
 .btn-warning {
-  background-color: #d97706; /* Reemplaza bg-yellow-600 */
+  background-color: #f59e0b; /* Reemplaza bg-yellow-600 */
 }
 
-.btn-warning:hover {
-  background-color: #b45309; /* Reemplaza hover:bg-yellow-700 */
+.btn-warning:hover:not(.disabled) {
+  background-color: #d97706; /* Reemplaza hover:bg-yellow-700 */
 }
 
-.btn-success {
-  background-color: #16a34a; /* Reemplaza bg-green-600 */
-}
-
-.btn-success:hover {
-  background-color: #374151; /* Reemplaza hover:bg-gray-800 */
+/* Estilo para botones deshabilitados */
+.btn.disabled,
+.btn:disabled {
+  background-color: #6b7280; /* Color gris para indicar deshabilitado */
+  opacity: 0.5; /* Reduce la opacidad */
+  cursor: not-allowed; /* Cambia el cursor para indicar que no es interactivo */
+  pointer-events: none; /* Evita interacciones */
 }
 
 /* Cartas comunitarias */

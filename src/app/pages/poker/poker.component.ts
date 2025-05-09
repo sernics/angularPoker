@@ -21,9 +21,10 @@ export class PokerComponent {
   protected disabledButtons: boolean[];
   protected faceDown: boolean[] = [true, true, true, true, true];
   protected faceUp: boolean = false;
+  protected winnerMessage: string = "";
 
   constructor() {
-    this.disabledButtons = [false, true, false, false];
+    this.disabledButtons = [false, true, true, true];
     this.deck = new TexasDeck();
     this.deck.shuffle();
     this.playerHand = new TexasHand("player 1");
@@ -40,14 +41,49 @@ export class PokerComponent {
     this.faceDown[0] = false;
     this.faceDown[1] = false;
     this.faceDown[2] = false;
+    this.disabledButtons[0] = true;
+    this.disabledButtons[1] = false;
   }
 
   protected dealTurn() {
     this.faceDown[3] = false;
+    this.disabledButtons[1] = true;
+    this.disabledButtons[2] = false;
   }
 
   protected dealRiver() {
     this.faceDown[4] = false;
+    this.disabledButtons[2] = true;
+    this.disabledButtons[3] = false;
+  }
+
+  protected evaluateHands() {
+    this.faceUp = true;
+    this.disabledButtons[3] = true;
+    const winners = this.setWinner();
+    this.setWinnerMessage(winners);
+  }
+
+  private setWinner(): Hand[] {
+    let winners: Hand[] = [this.playerHand];
+    for (let i = 0; i < this.rivalsHands.length; i++) {
+      const comparision = this.rivalsHands[i].compareTo(winners[0], this.communityCards);
+      if (comparision > 0) {
+        winners = [this.rivalsHands[i]];
+      } else if (comparision === 0) {
+        winners.push(this.rivalsHands[i]);
+      }
+    }
+    return winners;
+  }
+
+  private setWinnerMessage(winners: Hand[]) {
+    if (winners.length > 1) {
+      this.winnerMessage = "It's a tie!";
+    }
+    else {
+      this.winnerMessage = `${winners[0].getLabel()} wins with ${winners[0].classify(this.communityCards)}!`;
+    }
   }
 
   private initializePlayers() {
@@ -57,8 +93,5 @@ export class PokerComponent {
       this.rivalsHands[i] = new TexasHand(`player ${i + 2}`);
       this.deck.moveCardsToHand(this.rivalsHands[i], 2);
     }
-    console.log(this.communityCards);
-    console.log(this.playerHand);
-    console.log(this.rivalsHands);
   }
 }

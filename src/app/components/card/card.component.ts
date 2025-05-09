@@ -18,8 +18,6 @@ export class CardComponent {
   imageError: boolean = false;
 
   cardImagePath(): string {
-    console.log(this.faceDown);
-
     if (this.faceDown) {
       return `assets/images/${this.backStyle}.png`;
     }
