@@ -64,6 +64,19 @@ export class PokerComponent {
     this.setWinnerMessage(winners);
   }
 
+  protected dealNewGame() {
+    this.deck = new TexasDeck();
+    this.deck.shuffle();
+    this.playerHand = new TexasHand("player 1");
+    this.rivalsHands = [];
+    this.communityCards = new TexasHand("communityCards");
+    this.faceDown = [true, true, true, true, true];
+    this.disabledButtons = [false, true, true, true];
+    this.faceUp = false;
+    this.winnerMessage = "";
+    this.initializePlayers();
+  }
+
   private setWinner(): Hand[] {
     let winners: Hand[] = [this.playerHand];
     for (let i = 0; i < this.rivalsHands.length; i++) {
@@ -78,6 +91,7 @@ export class PokerComponent {
   }
 
   private setWinnerMessage(winners: Hand[]) {
+    console.log(winners);
     if (winners.length > 1) {
       this.winnerMessage = "It's a tie!";
     }

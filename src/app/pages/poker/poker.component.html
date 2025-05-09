@@ -4,7 +4,7 @@
     <h1>Texas Hold'em</h1>
     <div class="header-actions">
       <p>{{ winnerMessage }}</p>
-      <button class="btn btn-primary">New Game</button>
+      <button (click)="dealNewGame()" class="btn btn-primary">New Game</button>
     </div>
   </div>
   <!-- Cartas comunitarias -->
@@ -88,7 +88,7 @@
     <div class="player-hand">
       <h2>Your Hand</h2>
       <div class="card-container">
-        @for (card of this.rivalsHands[0].getCards(); track card) {
+        @for (card of this.playerHand.getCards(); track card) {
         <app-card
           [imagePath]="'assets/images/' + card.getCardName() + '.png'"
           [interactive]="true"
