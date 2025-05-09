@@ -1,13 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from '@/components/card/card.component';
-// import { Card } from '@/class/card';
-
-interface Card {
-  suit: string;
-  value: string;
-  imgPath?: string; // Opcional: ruta directa a la imagen
-}
+import { Deck } from '@/class/deck';
+import { TexasDeck } from '@/class/texasDeck';
+import { Hand } from '@/class/hand';
+import { TexasHand } from '@/class/texasHand';
 
 @Component({
   selector: 'app-poker',
@@ -17,32 +14,51 @@ interface Card {
   styleUrls: ['./poker.component.css']
 })
 export class PokerComponent {
-  // Datos de ejemplo para mostrar el diseño
-  playerName: string = 'Player 1';
-  playerHand: Card[] = [
-    { suit: 'H', value: 'A', imgPath: 'assets/images/AH.png' },
-    { suit: 'S', value: 'K', imgPath: 'assets/images/KS.png' }
-  ];
-
-  communityCards: Card[] = [
-    { suit: 'D', value: '10', imgPath: 'assets/images/10D.png' },
-    { suit: 'C', value: 'J', imgPath: 'assets/images/JC.png' },
-    { suit: 'H', value: 'Q', imgPath: 'assets/images/QH.png' }
-  ];
-
-  // Para mostrar espacios de cartas que aún no se han revelado
-  emptySpots: number[] = [1, 2]; // Para turn y river
-
-  opponents = [
-    { name: 'Player 2', chips: 850, bet: 20 },
-    { name: 'Player 3', chips: 1200, bet: 20 },
-    { name: 'Player 4', chips: 930, bet: 0, folded: true }
-  ];
+  private deck: Deck;
+  protected communityCards: Hand;
+  protected rivalsHands: Hand[];
+  protected playerHand: Hand;
+  protected disabledButtons: boolean[];
+  protected faceDown: boolean[] = [true, true, true, true, true];
+  protected faceUp: boolean = false;
 
   constructor() {
+    this.disabledButtons = [false, true, false, false];
+    this.deck = new TexasDeck();
+    this.deck.shuffle();
+    this.playerHand = new TexasHand("player 1");
+    this.rivalsHands = [];
+    this.communityCards = new TexasHand("communityCards");
+    this.initializePlayers();
   }
 
-  emptySpotsArray(): number[] {
-    return this.emptySpots.map((_, i) => i);
+  protected getFaceDown(index: number): boolean {
+    return this.faceDown[index];
+  }
+
+  protected dealFlop() {
+    this.faceDown[0] = false;
+    this.faceDown[1] = false;
+    this.faceDown[2] = false;
+  }
+
+  protected dealTurn() {
+    this.faceDown[3] = false;
+  }
+
+  protected dealRiver() {
+    this.faceDown[4] = false;
+  }
+
+  private initializePlayers() {
+    this.deck.moveCardsToHand(this.communityCards, 5);
+    this.deck.moveCardsToHand(this.playerHand, 2);
+    for (let i = 0; i < 3; i++) {
+      this.rivalsHands[i] = new TexasHand(`player ${i + 2}`);
+      this.deck.moveCardsToHand(this.rivalsHands[i], 2);
+    }
+    console.log(this.communityCards);
+    console.log(this.playerHand);
+    console.log(this.rivalsHands);
   }
 }
